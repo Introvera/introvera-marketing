@@ -18,13 +18,14 @@ const Home: React.FC = () => {
       <Navbar />
       <div className="max-w-7xl mx-auto pt-0 px-5">
         <HeroSection />
+        <AboutUs />
         <Services />
         <Projects
           items={projects.map((project, index) => (
             <Card key={index} card={project} index={index} />
           ))}
         />
-        <AboutUs />
+        
         <WhyChooseUs />
         <Team />
         {/* <Testimonials autoplay={true} /> */}

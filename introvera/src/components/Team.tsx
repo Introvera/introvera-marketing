@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "react-intersection-observer";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { Avatar } from "@heroui/react";
 import { Linkedin } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
 
 // Team Images
 import nimesh from "../assets/team-photos/nimesh.png";
@@ -22,7 +21,7 @@ import nithula from "../assets/team-photos/nithula.jpeg";
 interface TeamMember {
   name: string;
   position: string;
-  image: StaticImageData;
+  image: any;
   linkedin?: string;
 }
 
@@ -40,108 +39,78 @@ const teamMembers: TeamMember[] = [
   { name: "Nithula Hansaja", position: "Developer", image: nithula, linkedin: "https://www.linkedin.com/in/nithula-hansaja/" },
 ];
 
-const getCardsToShow = (): number => {
-  if (typeof window !== "undefined") {
-    if (window.innerWidth >= 1280) return 5;
-    if (window.innerWidth >= 640) return 3;
-  }
-  return 3;
-};
-
 const Team = () => {
-  const [start, setStart] = useState(0);
-  const [cardsToShow, setCardsToShow] = useState(getCardsToShow());
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const controls = useAnimation();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const { ref: inViewRef, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: "0px 0px -100px 0px",
-  });
-
-  // Combine refs for container and inView observer
-  const setRefs = (node: HTMLDivElement | null) => {
-    containerRef.current = node;
-    inViewRef(node);
-  };
-
+  // Autoplay
   useEffect(() => {
-    const handleResize = () => setCardsToShow(getCardsToShow());
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setStart((prev) => (prev + 1) % teamMembers.length);
-    }, 2500);
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, [start, cardsToShow]);
-
-  useEffect(() => {
-    if (containerRef.current && containerRef.current.firstChild instanceof HTMLElement) {
-      const cardWidth = containerRef.current.firstChild.offsetWidth;
-      containerRef.current.scrollTo({
-        left: cardWidth * start,
-        behavior: "smooth",
+    const slide = async () => {
+      const width = containerRef.current?.scrollWidth || 0;
+      const scrollDistance = width / 2;
+      await controls.start({
+        x: -scrollDistance,
+        transition: {
+          duration: 25,
+          ease: "linear",
+          repeat: Infinity,
+        },
       });
+    };
+
+    if (!isHovered) {
+      slide();
+    } else {
+      controls.stop();
     }
-  }, [start, cardsToShow]);
+  }, [isHovered, controls]);
 
   return (
-    <div className="mt-16 mb-16 max-w-full" ref={setRefs}>
-      <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center my-8 tracking-wide">
+    <div className="w-full py-16 overflow-hidden bg-white dark:bg-neutral-950">
+      <h2 className="text-3xl sm:text-5xl text-center mb-10">
         Meet Our{" "}
-        <span className="bg-gradient-to-r from-blue-500 to-purple-800 text-transparent bg-clip-text">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-800">
           Team
         </span>
       </h2>
 
-      {inView ? (
+      <div
+        ref={containerRef}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="overflow-hidden cursor-grab active:cursor-grabbing py-5" 
+      >
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex gap-2 sm:gap-4 xl:gap-8 overflow-x-auto scroll-smooth scrollbar-hide"
-          style={{ scrollSnapType: "x mandatory" }}
+          className="flex gap-8 px-4"
+          animate={controls}
+          drag="x"
+          dragConstraints={{ left: -1000, right: 0 }}
+          dragElastic={0.1}
         >
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className="flex-shrink-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-md flex flex-col items-center p-2 sm:p-4 xl:p-6 min-w-[90px] sm:min-w-[140px] md:min-w-[180px] xl:min-w-[220px] max-w-xs h-32 sm:h-44 md:h-52 xl:h-60 transition-all duration-500 hover:border-gradient-to-r hover:from-blue-500 hover:to-purple-800 hover:border-4"
-              style={{ scrollSnapAlign: "start" }}
+          {[...teamMembers, ...teamMembers].map((member, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.05 }}
+              className="flex-shrink-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 p-6 rounded-xl shadow-lg w-64 md:w-72 flex flex-col items-center text-center transition-all duration-300"
             >
-              <Image
-                src={member.image}
-                alt={member.name}
-                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 object-cover rounded-full shadow mb-2 sm:mb-4"
-                priority={true}
-              />
-              <div className="text-xs sm:text-sm md:text-base xl:text-lg font-semibold text-center">
-                {member.name}
-              </div>
-              <div className="text-neutral-500 dark:text-neutral-300 text-[10px] sm:text-xs md:text-sm xl:text-base text-center">
-                {member.position}
-              </div>
+              <Avatar isBordered src={member.image.src} size="lg" color="primary" className="w-24 h-24" />
+              <div className="mt-4 font-semibold  text-lg">{member.name}</div>
+              <div className="text-md text-neutral-500 dark:text-neutral-300">{member.position}</div>
               {member.linkedin && (
                 <a
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-1 flex items-center gap-1 text-blue-600 dark:text-blue-400 text-[10px] sm:text-xs md:text-sm xl:text-base hover:underline"
+                  className="text-md text-blue-500 mt-2 inline-flex items-center gap-1 hover:underline"
                 >
-                  <Linkedin size={14} />
-                  <span>LinkedIn</span>
+                  <Linkedin size={16} /> LinkedIn
                 </a>
               )}
-            </div>
+            </motion.div>
           ))}
         </motion.div>
-      ) : (
-        <div style={{ height: "15rem" }} />
-      )}
+      </div>
     </div>
   );
 };

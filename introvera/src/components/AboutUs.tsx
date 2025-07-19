@@ -14,7 +14,7 @@ const AboutUs: React.FC = () => {
     <div
       ref={ref}
       id="about"
-      className="relative mt-20 border-b border-neutral-800 min-h-[400px]"
+      className="relative mt-20 min-h-[400px]"
     >
       {inView ? (
         <motion.div

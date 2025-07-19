@@ -3,7 +3,14 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
-import { FileCode, Cpu, SmartphoneNfc, Handshake, Clock2, Users } from "lucide-react";
+import {
+  FileCode,
+  Cpu,
+  SmartphoneNfc,
+  Handshake,
+  Clock2,
+  Users,
+} from "lucide-react";
 
 interface ChooseUsItem {
   icon: React.ReactNode;
@@ -13,32 +20,32 @@ interface ChooseUsItem {
 
 export const chooseus: ChooseUsItem[] = [
   {
-    icon: <FileCode />,
+    icon: <FileCode className="w-5 h-5" />,
     text: "Clean Code",
     description: "We write readable, maintainable code that’s easy to scale.",
   },
   {
-    icon: <Cpu />,
+    icon: <Cpu className="w-5 h-5" />,
     text: "Agile Process",
     description: "We work in fast, flexible sprints to deliver results quickly.",
   },
   {
-    icon: <SmartphoneNfc />,
+    icon: <SmartphoneNfc className="w-5 h-5" />,
     text: "Clear Communication",
     description: "We keep you updated every step of the way — no surprises.",
   },
   {
-    icon: <Handshake />,
+    icon: <Handshake className="w-5 h-5" />,
     text: "Business-Focused",
     description: "Our solutions align with your goals, not just the tech.",
   },
   {
-    icon: <Clock2 />,
+    icon: <Clock2 className="w-5 h-5" />,
     text: "On-Time Delivery",
     description: "We respect your deadlines and deliver as promised.",
   },
   {
-    icon: <Users />,
+    icon: <Users className="w-5 h-5" />,
     text: "Skilled Team",
     description: "Experienced developers, designers, and strategists on every project.",
   },
@@ -51,7 +58,10 @@ const WhyChooseUs: React.FC = () => {
   });
 
   return (
-    <div ref={ref} className="relative mt-20 border-b border-neutral-800 min-h-[400px]">
+    <div
+      ref={ref}
+      className="relative mt-20  min-h-[400px] px-4 mb-20"
+    >
       {inView ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,19 +76,23 @@ const WhyChooseUs: React.FC = () => {
               </span>
             </h2>
           </div>
-          <div className="flex flex-wrap mt-10 lg:mt-10">
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-16 py-5">
             {chooseus.map((item, index) => (
-              <div key={index} className="w-full sm:w-1/2 lg:w-1/3">
-                <div className="flex">
-                  <div className="flex mx-6 h-10 w-10 p-2 bg-neutral-900 text-blue-700 justify-center items-center rounded-full">
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="bg-gradient-to-br from-neutral-900 to-neutral-950 text-white p-6 rounded-xl border border-neutral-800 shadow-md flex flex-col gap-3"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 p-1 items-center justify-center bg-neutral-800 rounded-full text-blue-500">
                     {item.icon}
                   </div>
-                  <div>
-                    <h5 className="mt-1 mb-2 text-xl">{item.text}</h5>
-                    <p className="text-md p-2 mb-10 text-neutral-500">{item.description}</p>
-                  </div>
+                  <h5 className="text-base font-semibold">{item.text}</h5>
                 </div>
-              </div>
+                <p className="text-sm text-neutral-400">{item.description}</p>
+              </motion.div>
             ))}
           </div>
         </motion.div>
