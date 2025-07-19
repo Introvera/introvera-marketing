@@ -57,7 +57,7 @@ export const projects: Project[] = [
         festivals, and authentic spots with insider tips from locals. Build
         interactive itineraries, access real-time weather and event updates,
         and book transport, accommodations, and activities — all in one place.
-        Whether you're seeking spiritual healing, adventure, or food tastings,
+        Whether you&apos;re seeking spiritual healing, adventure, or food tastings,
         our platform connects you with unforgettable experiences. Travel
         smarter, deeper, and more meaningfully, with safety, accessibility, and
         personalization at the core.
@@ -98,10 +98,34 @@ export const projects: Project[] = [
     category: "Web App",
     description: "Smarter Car Choices, Made Simple.",
     src: dreamAuto,
-    content: <div>Our vehicle recommendation platform is built to transform the way people buy vehicles — especially those who feel overwhelmed by the complexity of choosing the right car. Whether you're a first-time buyer, a busy professional, or someone simply unsure of how to navigate loans and insurance, our intelligent and user-friendly progressive web app is designed with you in mind.
-            Using machine learning, we provide smart, personalized vehicle suggestions tailored to your budget, lifestyle, and driving needs. From fuel economy to loan compatibility, our system considers every factor that matters — and gets smarter with every use. Alongside this, our integrated chatbot breaks down finance and insurance options step-by-step, so even those with no prior knowledge can make confident decisions.
-            But we don’t stop there. The app includes powerful features like real-time price prediction, a vehicle comparison tool, availability tracking, and even test drive booking. Buyers can browse or sell through our built-in marketplace, while our insights into new and used vehicle trends help users find value and make informed choices.
-            Whether you're looking for a budget car, a sustainable EV, or a high-end investment vehicle, our platform is built to make the process smarter, faster, and easier for everyone — no expertise required.</div>,
+    content: (
+      <div>
+        Our vehicle recommendation platform is built to transform the way people
+        buy vehicles — especially those who feel overwhelmed by the complexity
+        of choosing the right car. Whether you&apos;re a first-time buyer, a busy
+        professional, or someone simply unsure of how to navigate loans and
+        insurance, our intelligent and user-friendly progressive web app is
+        designed with you in mind.
+        <br />
+        Using machine learning, we provide smart, personalized vehicle
+        suggestions tailored to your budget, lifestyle, and driving needs. From
+        fuel economy to loan compatibility, our system considers every factor
+        that matters — and gets smarter with every use. Alongside this, our
+        integrated chatbot breaks down finance and insurance options
+        step-by-step, so even those with no prior knowledge can make confident
+        decisions.
+        <br />
+        But we don&apos;t stop there. The app includes powerful features like
+        real-time price prediction, a vehicle comparison tool, availability
+        tracking, and even test drive booking. Buyers can browse or sell through
+        our built-in marketplace, while our insights into new and used vehicle
+        trends help users find value and make informed choices.
+        <br />
+        Whether you&apos;re looking for a budget car, a sustainable EV, or a
+        high-end investment vehicle, our platform is built to make the process
+        smarter, faster, and easier for everyone — no expertise required.
+      </div>
+    ),
     link: "https://projectfour.com",
   },
   {
@@ -109,12 +133,35 @@ export const projects: Project[] = [
     category: "Mobile App",
     description: "Managing Communities with Ease and Trust.",
     src: weNeighbour,
-    content: <div>We Neighbour is a modern, free community management platform designed specifically for apartment residents. Our mission is to build safer, more connected, and resourceful communities by simplifying daily living and encouraging meaningful engagement among neighbours. Whether it's borrowing a tool, reporting a maintenance issue, or planning a community event, We Neighbour brings all essential apartment functions into one smart platform.
-              Residents gain verified access to a secure environment through manager-approved profiles, ensuring privacy and safety. From real-time safety alerts and maintenance tracking to event calendars, amenity bookings, and visitor check-ins with QR codes, every feature is designed to improve communication and convenience within your building. Our platform also offers a trusted directory of service providers, a community forum for open discussion, and wellness programs that promote both physical and social wellbeing.
-              By supporting local businesses and making it easier for residents to connect, collaborate, and care for their shared spaces, We Neighbour transforms apartment living into a truly communal experience — safer, smarter, and more engaging for everyone.</div>,
+    content: (
+      <div>
+        We Neighbour is a modern, free community management platform designed
+        specifically for apartment residents. Our mission is to build safer,
+        more connected, and resourceful communities by simplifying daily living
+        and encouraging meaningful engagement among neighbours. Whether it&apos;s
+        borrowing a tool, reporting a maintenance issue, or planning a community
+        event, We Neighbour brings all essential apartment functions into one
+        smart platform.
+        <br />
+        Residents gain verified access to a secure environment through
+        manager-approved profiles, ensuring privacy and safety. From real-time
+        safety alerts and maintenance tracking to event calendars, amenity
+        bookings, and visitor check-ins with QR codes, every feature is designed
+        to improve communication and convenience within your building. Our
+        platform also offers a trusted directory of service providers, a
+        community forum for open discussion, and wellness programs that promote
+        both physical and social wellbeing.
+        <br />
+        By supporting local businesses and making it easier for residents to
+        connect, collaborate, and care for their shared spaces, We Neighbour
+        transforms apartment living into a truly communal experience — safer,
+        smarter, and more engaging for everyone.
+      </div>
+    ),
     link: "https://projectfour.com",
   },
 ];
+
 
 interface CarouselContextType {
   onCardClose: (index: number) => void;
