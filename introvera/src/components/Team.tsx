@@ -94,7 +94,7 @@ const Team = () => {
               whileHover={{ scale: 1.05 }}
               className="flex-shrink-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 p-6 rounded-xl shadow-lg w-64 md:w-72 flex flex-col items-center text-center transition-all duration-300"
             >
-              <Avatar isBordered src={member.image.src} size="lg" color="primary" className="w-24 h-24" />
+              <Avatar isBordered src={member.image.src} size="lg" className="w-24 h-24" />
               <div className="mt-4 font-semibold  text-lg">{member.name}</div>
               <div className="text-md text-neutral-500 dark:text-neutral-300">{member.position}</div>
               {member.linkedin && (
