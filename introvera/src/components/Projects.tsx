@@ -126,7 +126,7 @@ export const projects: Project[] = [
         smarter, faster, and easier for everyone — no expertise required.
       </div>
     ),
-    link: "https://projectfour.com",
+    link: "https://www.dreamautomart.com/",
   },
   {
     title: "We Neighbour",
@@ -158,7 +158,7 @@ export const projects: Project[] = [
         smarter, and more engaging for everyone.
       </div>
     ),
-    link: "https://projectfour.com",
+    link: "https://www.weneighbour.live/",
   },
 ];
 

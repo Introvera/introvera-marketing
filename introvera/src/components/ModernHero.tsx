@@ -5,7 +5,7 @@ import { WavyBackground } from "../components/ui/wavy-background";
 
 export function ModernHero() {
   return (
-    <WavyBackground containerClassName="h-screen overflow-hidden" className="max-w-6xl mx-auto px-4">
+    <WavyBackground containerClassName="h-screen overflow-hidden w-screen" className="max-w-6xl mx-auto px-4">
       <motion.div
         className="flex flex-col items-center justify-center text-center w-full h-full"
         initial={{ opacity: 0, y: 30 }}
