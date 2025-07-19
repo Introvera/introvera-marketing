@@ -62,11 +62,11 @@ export const WavyBackground = ({
   };
 
   const waveColors = colors ?? [
-    "#38bdf8",
-    "#818cf8",
-    "#c084fc",
-    "#e879f9",
-    "#22d3ee",
+    "rgba(251,191,36,0.15)",  // amber-400
+  "rgba(249,115,22,0.15)",  // orange-500
+  "rgba(244,63,94,0.15)",   // rose-500
+  "rgba(236,72,153,0.15)",  // pink-500
+  "rgba(217,70,239,0.15)",  
   ];
   const drawWave = (n: number) => {
     nt += getSpeed();
@@ -117,7 +117,7 @@ export const WavyBackground = ({
       )}
     >
       <canvas
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 "
         ref={canvasRef}
         id="canvas"
         style={{

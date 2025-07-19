@@ -12,12 +12,16 @@ import Testimonials from "@/components/Testimonials";
 import ContactUs from "@/components/ContactUs";
 import Footer from "@/components/Footer";
 import { ParallaxScrollTestimonials } from "@/components/Testi";
+import { ModernHero } from "@/components/ModernHero";
 const Home: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-7xl mx-auto pt-0 px-5">
-        <HeroSection />
+      <div className="mx-0 pt-0 overflow-hidden">
+        {/* <HeroSection /> */}
+        <div className="relative overflow-x-hidden">
+          <ModernHero />
+        </div>        
         <AboutUs />
         <Services />
         <Projects

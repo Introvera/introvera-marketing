@@ -60,7 +60,7 @@ const WhyChooseUs: React.FC = () => {
   return (
     <div
       ref={ref}
-      className="relative mt-20  min-h-[400px] px-4 mb-20"
+      className="relative mt-20  min-h-[400px] px-4 mb-20 px-10"
     >
       {inView ? (
         <motion.div

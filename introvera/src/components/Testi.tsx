@@ -165,7 +165,7 @@ export const ParallaxScrollTestimonials = ({
 
       {/* ✅ Scrollable testimonials */}
       <div
-        className="h-[40rem] overflow-y-auto scrollbar-hide"
+        className="h-[40rem] px-10 overflow-y-auto scrollbar-hide"
         ref={gridRef}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto gap-10 py-10 px-6 items-start">

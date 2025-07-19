@@ -144,7 +144,7 @@ export const Carousel: React.FC<CarouselProps> = ({
     <CarouselContext.Provider
       value={{ onCardClose: handleCardClose, currentIndex }}
     >
-      <div className="relative w-full" id="projects" ref={setRefs}>
+      <div className="relative w-full px-10" id="projects" ref={setRefs}>
         {/* Heading above the carousel */}
         <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center my-2 tracking-wide">
           Our{" "}
