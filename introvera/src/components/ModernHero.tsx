@@ -21,9 +21,9 @@
 //         </h1>
 
 //         <p className="mt-6 text-lg sm:text-xl text-neutral-300 max-w-3xl">
-//           We build intelligent, scalable, and secure software solutions that drive success.
-//           Whether you&apos;re a startup or an enterprise, we bring your ideas to life with
-//           cutting-edge technology and clean design.
+          // We build intelligent, scalable, and secure software solutions that drive success.
+          // Whether you&apos;re a startup or an enterprise, we bring your ideas to life with
+          // cutting-edge technology and clean design.
 //         </p>
 
 //         <motion.div
@@ -85,9 +85,9 @@ export function ModernHero() {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-neutral-300 max-w-3xl">
-            We build intelligent, scalable, and secure software solutions that drive success.
-            Whether you're a startup or an enterprise, we bring your ideas to life with
-            cutting-edge technology and clean design.
+                      We build intelligent, scalable, and secure software solutions that drive success.
+          Whether you&apos;re a startup or an enterprise, we bring your ideas to life with
+          cutting-edge technology and clean design.
           </p>
 
           <motion.div
