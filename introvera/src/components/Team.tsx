@@ -21,7 +21,7 @@ import nithula from "../assets/team-photos/nithula.jpeg";
 interface TeamMember {
   name: string;
   position: string;
-  image: any;
+  image: { src: string };
   linkedin?: string;
 }
 

@@ -138,7 +138,7 @@ export const ParallaxScrollTestimonials = ({
 }: {
   className?: string;
 }) => {
-  const gridRef = useRef<any>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     container: gridRef,
     offset: ["start start", "end start"],
