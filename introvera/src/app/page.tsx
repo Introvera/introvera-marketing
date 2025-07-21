@@ -7,7 +7,7 @@ import Services from "@/components/Services";
 import Projects, { projects, Card } from "@/components/Projects";
 import AboutUs from "@/components/AboutUs";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Team from "@/components/Team";
+// import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
 import ContactUs from "@/components/ContactUs";
 import Footer from "@/components/Footer";
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         />
         
         <WhyChooseUs />
-        <Team />
+        {/* <Team /> */}
         {/* <Testimonials autoplay={true} /> */}
         <ParallaxScrollTestimonials />
         <ContactUs />
