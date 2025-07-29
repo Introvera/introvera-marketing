@@ -57,7 +57,7 @@ const ContactUs = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-3xl sm:text-5xl text-center my-8 tracking-wide">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-14 text-center my-8 tracking-wide">
             Contact{" "}
             <span className="bg-gradient-to-r from-blue-500 to-purple-800 text-transparent bg-clip-text">
               Us
@@ -76,12 +76,12 @@ const ContactUs = () => {
               </p>
               <p className="mb-2">
                 <strong>Phone:</strong>{" "}
-                <a href="tel:+946782225" className="text-blue-600">
-                  +94 6782 225
+                <a href="tel:+94716782225" className="text-blue-600">
+                  +94 716782 225
                 </a>
               </p>
               <p className="mb-2">
-                <strong>Address:</strong> Kaduwela
+                <strong>Address:</strong> 275/3, New Kandy Road, Biyagama
               </p>
               <div className="mt-4 rounded-lg overflow-hidden">
                 <iframe
