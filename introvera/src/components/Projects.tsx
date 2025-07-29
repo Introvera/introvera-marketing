@@ -18,7 +18,7 @@ import { Link as HeroLink } from "@heroui/react";
 
 // Static imports for images
 import vivahaPlansImg from "@/assets/projects/wedding.jpg";
-import ceylonTrails from "@/assets/projects/travel.jpg";
+import Trailbooklanka from "@/assets/projects/travel.jpg";
 import schoolify from "@/assets/projects/schoolify.jpg";
 import dreamAuto from "@/assets/projects/dream.jpg";
 import weNeighbour from "@/assets/projects/weneighbour.jpg";
@@ -39,14 +39,14 @@ export const projects: Project[] = [
     description: "An amazing project about web applications.",
     src: vivahaPlansImg,
     content: <div>Details about Project One here...</div>,
-    link: "https://vivahaplans.com",
+    link: "https://vivahaplans.lk",
   },
   {
-    title: "Ceylon Trails",
+    title: "Trail Book Lanka",
     category: "Mobile App and Web",
     description:
       "Discover Sri Lanka like never before! Personalized, Immersive, and Truly Local.",
-    src: ceylonTrails,
+    src: Trailbooklanka,
     content: (
       <div>
         Our travel guide platform is your ultimate trip-planning companion,
@@ -63,7 +63,7 @@ export const projects: Project[] = [
         personalization at the core.
       </div>
     ),
-    link: "https://youtube.com",
+    link: "https://trailbooklanka.com",
   },
   {
     title: "Schoolify",
@@ -234,8 +234,8 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   return (
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
-      <div className="relative w-full px-10" id="projects" ref={setRefs}>
-        <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center my-2 tracking-wide">
+      <div className="relative w-full px-10 pt-12" id="projects" ref={setRefs} >
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-12 text-center  tracking-wide">
           Our{" "}
           <span className="bg-gradient-to-r from-blue-500 to-purple-800 text-transparent bg-clip-text">
             Projects
@@ -244,7 +244,7 @@ export const Carousel: React.FC<CarouselProps> = ({
 
         {inView ? (
           <div
-            className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
+            className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-8 [scrollbar-width:none] md:py-20"
             onScroll={checkScrollability}
           >
             <div className="absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l" />
@@ -397,20 +397,24 @@ export const BlurImage: React.FC<BlurImageProps> = ({
   ...rest
 }) => {
   const [isLoading, setLoading] = useState(true);
+
   return (
     <Image
       {...rest}
       alt={alt}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       className={cn(
         "h-full w-full transition duration-300",
         isLoading ? "blur-sm" : "blur-0",
         className
       )}
-      onLoadingComplete={() => setLoading(false)}
+      onLoad={() => setLoading(false)}
       placeholder="blur"
       fill
     />
   );
 };
+
+
 
 export default Carousel;
