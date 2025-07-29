@@ -172,7 +172,7 @@ const WhyChooseUs: React.FC = () => {
   }));
 
   return (
-    <div ref={ref} className="relative mt-20 px-4 mb-20 lg:px-10">
+    <div ref={ref} className="relative mt-8 px-4 mb-0 lg:px-10">
       {inView ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -180,7 +180,7 @@ const WhyChooseUs: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="text-center">
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-20 tracking-wide">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-0 lg:mt-6 tracking-wide">
               Why Choose{" "}
               <span className="bg-gradient-to-r from-purple-500 to-blue-800 text-transparent bg-clip-text">
                 Us
@@ -188,7 +188,7 @@ const WhyChooseUs: React.FC = () => {
             </h2>
           </div>
 
-          <div className="mt-16 py-5">
+          <div className="mt-10 py-2">
             <HoverEffect items={items} />
           </div>
         </motion.div>
