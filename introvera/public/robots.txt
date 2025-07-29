@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://introvera.com
+
+# Sitemaps
+Sitemap: https://introvera.com/sitemap.xml
