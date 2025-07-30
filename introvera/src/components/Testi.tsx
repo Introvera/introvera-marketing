@@ -2,6 +2,7 @@
 import { useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import {
   Card,
@@ -156,7 +157,7 @@ export const ParallaxScrollTestimonials = ({
   return (
     <section className={cn("w-full", className)}>
       {/* ✅ Section heading */}
-      <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center sm:mt-32 mb-12 tracking-wide s">
+      <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-14 text-center  tracking-wide s">
         What People{" "}
         <span className="bg-gradient-to-r from-blue-500 to-purple-800 text-transparent bg-clip-text">
           are saying...
@@ -217,12 +218,14 @@ function TestimonialCard({
       <CardFooter className="gap-3">
         <div className="flex self-end justify-end gap-2">
           {[...Array(5)].map((_, i) => (
-            <img
-              key={i}
-              src="/assets/start.png"
-              alt="star"
-              className="w-5 h-5"
-            />
+            <Image
+      key={i}
+      src="/assets/start.png"
+      alt="star"
+      width={20}
+      height={20}
+      className="w-5 h-5"
+    />
           ))}
         </div>
       </CardFooter>

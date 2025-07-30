@@ -119,7 +119,7 @@
 
 import React from "react";
 import { CheckCircle2 } from "lucide-react";
-import codeImg from "../assets/code.jpg";
+import Img from "../assets/img.webp";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -186,18 +186,18 @@ const Services: React.FC = () => {
         >
           <div className="sticky top-24">
             <Image
-              src={codeImg}
+              src={Img}
               alt="Coding"
               className="rounded-xl shadow-xl w-full h-auto"
               priority
-              quality={80}
+              quality={100}
             />
           </div>
         </motion.div>
 
         {/* List: full height scrollable only on large screens */}
         <motion.div
-          className="w-full lg:w-1/2 lg:max-h-[700px] lg:overflow-y-scroll hide-scrollbar"
+          className="mt-30 w-full lg:w-1/2 lg:max-h-[700px] lg:overflow-y-scroll hide-scrollbar"
           initial={{ opacity: 0, x: 50 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ delay: 0.5, duration: 0.6 }}

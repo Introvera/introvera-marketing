@@ -42,18 +42,18 @@ const Footer: FC = () => {
     <footer className="bg-[#0a0a0a] text-neutral-300 px-6 md:px-12 py-12 mt-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Logo + Description */}
-        <div className="md:col-span-1">
-          <div className="mb-4">
+        <div className="md:col-span-1 text-center md:text-left">
+          <div className="mb-4 flex justify-center md:justify-start">
             <Image src={logo} alt="Introvera Logo" className="w-32 h-auto" />
           </div>
-          <p className="text-sm text-neutral-400 leading-relaxed max-w-sm">
+          <p className="text-sm text-neutral-400 leading-relaxed max-w-sm mx-auto md:mx-0">
             Empowering businesses with intelligent, scalable, and secure software solutions.
             We build with passion and purpose for the digital future.
           </p>
         </div>
 
         {/* Quick Links */}
-        <div>
+        <div className="text-center md:text-left">
           <h4 className="text-white font-semibold mb-3">Quick Links</h4>
           <ul className="space-y-2 text-sm">
             {quickLinks.map((link, idx) => (
@@ -67,11 +67,11 @@ const Footer: FC = () => {
         </div>
 
         {/* Social Media */}
-        <div>
+        <div className="text-center md:text-left">
           <h4 className="text-white font-semibold mb-3">Social Media</h4>
           <ul className="space-y-2 text-sm">
             {socialLinks.map((link, idx) => (
-              <li key={idx} className="flex items-center gap-2">
+              <li key={idx} className="flex items-center gap-2 justify-center md:justify-start">
                 <FontAwesomeIcon icon={link.icon} className="text-lg" />
                 <a
                   href={link.href}
@@ -87,10 +87,10 @@ const Footer: FC = () => {
         </div>
 
         {/* Contact */}
-        <div>
+        <div className="text-center md:text-left">
           <h4 className="text-white font-semibold mb-3">Contact</h4>
-          <p className="text-sm mb-2">📍 Kaduwela, Sri Lanka</p>
-          <p className="text-sm mb-2">📞 +94 6782 225</p>
+          <p className="text-sm mb-2">📍 275/3, New Kandy Road, Biyagama.</p>
+          <p className="text-sm mb-2">📞 +94 716782 225</p>
           <p className="text-sm mb-4">
             📧{" "}
             <a href="mailto:teamintrovera@gmail.com" className="hover:text-white">

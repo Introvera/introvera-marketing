@@ -2,13 +2,11 @@
 
 import React from "react";
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
 import Services from "@/components/Services";
 import Projects, { projects, Card } from "@/components/Projects";
 import AboutUs from "@/components/AboutUs";
 import WhyChooseUs from "@/components/WhyChooseUs";
-// import Team from "@/components/Team";
-import Testimonials from "@/components/Testimonials";
+import Team from "@/components/Team";
 import ContactUs from "@/components/ContactUs";
 import Footer from "@/components/Footer";
 import { ParallaxScrollTestimonials } from "@/components/Testi";
@@ -18,7 +16,7 @@ const Home: React.FC = () => {
     <>
       <Navbar />
       <div className="mx-0 pt-0 overflow-hidden">
-        {/* <HeroSection /> */}
+      
         <div className="relative overflow-x-hidden">
           <ModernHero />
         </div>        
@@ -29,10 +27,8 @@ const Home: React.FC = () => {
             <Card key={index} card={project} index={index} />
           ))}
         />
-        
         <WhyChooseUs />
-        {/* <Team /> */}
-        {/* <Testimonials autoplay={true} /> */}
+        <Team />
         <ParallaxScrollTestimonials />
         <ContactUs />
         <Footer />

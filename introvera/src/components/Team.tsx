@@ -67,8 +67,8 @@ const Team = () => {
   }, [isHovered, controls]);
 
   return (
-    <div className="w-full py-16 overflow-hidden bg-white dark:bg-neutral-950">
-      <h2 className="text-3xl sm:text-5xl text-center mb-10">
+    <div className="w-full pb-10 overflow-hidden bg-white dark:bg-neutral-950">
+      <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-14 mb-6 text-center">
         Meet Our{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-800">
           Team
