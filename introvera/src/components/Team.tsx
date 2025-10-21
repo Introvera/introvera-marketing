@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimationFrame, useMotionValue } from "framer-motion";
 import { Avatar } from "@heroui/react";
 import { Linkedin } from "lucide-react";
 
@@ -40,31 +40,49 @@ const teamMembers: TeamMember[] = [
 ];
 
 const Team = () => {
+  // pause autoplay on hover/drag if you like
   const [isHovered, setIsHovered] = useState(false);
-  const controls = useAnimation();
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Autoplay
+  // marquee motion value
+  const baseX = useMotionValue(0);
+
+  // px per millisecond (adjust speed)
+  const SPEED = 0.09;
+
+  // measure the track (inner flex) width; we duplicate items, so we wrap on halfWidth
+  const trackRef = useRef<HTMLDivElement>(null);
+  const halfWidthRef = useRef(0);
+
+  const measure = () => {
+    if (!trackRef.current) return;
+    // We render items 3x; the "original" set width is total/3
+    const total = trackRef.current.scrollWidth;
+    halfWidthRef.current = total / 3; // wrap window is one original set width
+  };
+
   useEffect(() => {
-    const slide = async () => {
-      const width = containerRef.current?.scrollWidth || 0;
-      const scrollDistance = width / 2;
-      await controls.start({
-        x: -scrollDistance,
-        transition: {
-          duration: 25,
-          ease: "linear",
-          repeat: Infinity,
-        },
-      });
-    };
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    if (trackRef.current) ro.observe(trackRef.current);
+    return () => ro.disconnect();
+  }, []);
 
+  // keep x in (-W, 0]
+  const wrapIfNeeded = () => {
+    const W = halfWidthRef.current;
+    if (!W) return;
+    const v = baseX.get();
+    if (v <= -W) baseX.set(v + W);
+    else if (v > 0) baseX.set(v - W);
+  };
+
+  // autoplay loop (never ends)
+  useAnimationFrame((_, delta) => {
     if (!isHovered) {
-      slide();
-    } else {
-      controls.stop();
+      baseX.set(baseX.get() - SPEED * delta);
+      wrapIfNeeded();
     }
-  }, [isHovered, controls]);
+  });
 
   return (
     <div className="w-full pb-10 overflow-hidden bg-white dark:bg-neutral-950">
@@ -76,26 +94,29 @@ const Team = () => {
       </h2>
 
       <div
-        ref={containerRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="overflow-hidden cursor-grab active:cursor-grabbing py-5" 
+        className="overflow-hidden cursor-grab active:cursor-grabbing py-5"
       >
         <motion.div
+          ref={trackRef}
           className="flex gap-8 px-4"
-          animate={controls}
+          style={{ x: baseX }}
           drag="x"
-          dragConstraints={{ left: -1000, right: 0 }}
-          dragElastic={0.1}
+          dragMomentum={false}
+          onUpdate={wrapIfNeeded}                 // wrap while dragging
+          onDragStart={() => setIsHovered(true)}  // optional pause on drag
+          onDragEnd={() => setIsHovered(false)}
         >
-          {[...teamMembers, ...teamMembers].map((member, index) => (
+          {/* Duplicate the set 3× so the loop feels seamless on wide screens */}
+          {[...teamMembers, ...teamMembers, ...teamMembers].map((member, index) => (
             <motion.div
               key={index}
               whileHover={{ scale: 1.05 }}
               className="flex-shrink-0 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 p-6 rounded-xl shadow-lg w-64 md:w-72 flex flex-col items-center text-center transition-all duration-300"
             >
               <Avatar isBordered src={member.image.src} size="lg" className="w-24 h-24" />
-              <div className="mt-4 font-semibold  text-lg">{member.name}</div>
+              <div className="mt-4 font-semibold text-lg">{member.name}</div>
               <div className="text-md text-neutral-500 dark:text-neutral-300">{member.position}</div>
               {member.linkedin && (
                 <a
