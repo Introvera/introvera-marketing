@@ -33,8 +33,8 @@ const quickLinks: QuickLink[] = [
 const socialLinks: SocialLink[] = [
   { href: "https://www.linkedin.com/company/introvera/", icon: faLinkedin, label: "LinkedIn" },
   { href: "https://www.facebook.com/profile.php?id=61577711031531", icon: faFacebook, label: "Facebook" },
-  { href: "#", icon: faInstagram, label: "Instagram" },
-  { href: "https://github.com/Introvera-sl", icon: faGithub, label: "GitHub" },
+  { href: "https://www.instagram.com/team_introvera/", icon: faInstagram, label: "Instagram" },
+  { href: "https://github.com/Introvera", icon: faGithub, label: "GitHub" },
 ];
 
 const Footer: FC = () => {

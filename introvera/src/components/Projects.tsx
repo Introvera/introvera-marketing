@@ -15,13 +15,20 @@ import { useOutsideClick } from "@/hooks/use-outside-click";
 import { useInView } from "react-intersection-observer";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import { Link as HeroLink } from "@heroui/react";
-
+import {
+  Card as HeroCard,
+} from "@heroui/react";
 // Static imports for images
 import vivahaPlansImg from "@/assets/projects/wedding.jpg";
-import Trailbooklanka from "@/assets/projects/travel.jpg";
+import Trailbooklanka from "@/assets/projects/trailbooklanka.jpeg";
 import schoolify from "@/assets/projects/schoolify.jpg";
 import dreamAuto from "@/assets/projects/dream.jpg";
 import weNeighbour from "@/assets/projects/weneighbour.jpg";
+
+import wen01 from "@/assets/projects/weneighbour/01.jpeg";
+import wen02 from "@/assets/projects/weneighbour/02.jpeg";
+import wen03 from "@/assets/projects/weneighbour/03.jpeg";
+import wen04 from "@/assets/projects/weneighbour/04.jpeg";
 
 interface Project {
   title: string;
@@ -29,18 +36,19 @@ interface Project {
   description: string;
   src: StaticImageData;
   content: ReactNode;
-  link?: string; // ✅ added link field
+  link?: string; 
+  projectphotos?: StaticImageData[];
 }
 
 export const projects: Project[] = [
-  {
-    title: "Vivaha Plans",
-    category: "Web & Mobile App",
-    description: "An amazing project about web applications.",
-    src: vivahaPlansImg,
-    content: <div>Details about Project One here...</div>,
-    link: "https://vivahaplans.lk",
-  },
+  // {
+  //   title: "Vivaha Plans",
+  //   category: "Web & Mobile App",
+  //   description: "An amazing project about web applications.",
+  //   src: vivahaPlansImg,
+  //   content: <div>Details about Project One here...</div>,
+  //   link: "https://vivahaplans.lk",
+  // },
   {
     title: "Trail Book Lanka",
     category: "Mobile App and Web",
@@ -64,6 +72,7 @@ export const projects: Project[] = [
       </div>
     ),
     link: "https://trailbooklanka.com",
+    projectphotos: [wen01, wen02, wen03, wen04],
   },
   {
     title: "Schoolify",
@@ -92,6 +101,7 @@ export const projects: Project[] = [
       </div>
     ),
     link: "https://facebook.com",
+    projectphotos: [wen01, wen02, wen03, wen04],
   },
   {
     title: "Dream Auto",
@@ -127,6 +137,7 @@ export const projects: Project[] = [
       </div>
     ),
     link: "https://www.dreamautomart.com/",
+    projectphotos: [wen01, wen02, wen03, wen04],
   },
   {
     title: "We Neighbour",
@@ -159,6 +170,7 @@ export const projects: Project[] = [
       </div>
     ),
     link: "https://www.weneighbour.live/",
+    projectphotos: [wen01, wen02, wen03, wen04],
   },
 ];
 
@@ -337,6 +349,22 @@ export const Card: React.FC<CardProps> = ({ card, index, layout = false }) => {
               >
                 {card.title}
               </motion.p>
+              {/* IN HERE THE PHOTOS OF THE PROJECT WILL BE DISPLAYED */}
+                  <div className="max-w-[900px] gap-4 grid grid-cols-12 grid-rows-1 mt-6">
+                    {card.projectphotos?.map((photo, i) => (
+                      <HeroCard
+                        key={i}
+                        className="col-span-12 sm:col-span-3 h-[420px] relative bg-neutral-900 rounded-2xl overflow-hidden flex items-center justify-center"
+                      >
+                        <BlurImage
+                          alt={`Project image ${i + 1}`}
+                          src={photo}
+                          className="object-contain"
+                        />
+                      </HeroCard>
+                    ))}
+                  </div>
+              {/* THIS IS THE END OF IT */}
               <div className="py-10 space-y-4">
                 {card.content}
 

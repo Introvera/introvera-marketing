@@ -157,7 +157,7 @@ export const ParallaxScrollTestimonials = ({
   return (
     <section className={cn("w-full", className)}>
       {/* ✅ Section heading */}
-      <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 lg:mt-14 text-center  tracking-wide s">
+      <h2 className="text-3xl sm:text-5xl lg:text-6xl mt-10 mb-10 lg:mt-14 text-center  tracking-wide s">
         What People{" "}
         <span className="bg-gradient-to-r from-blue-500 to-purple-800 text-transparent bg-clip-text">
           are saying...

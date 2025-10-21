@@ -117,11 +117,9 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center flex-shrink-0">
             <Image
-              className="h-5 w-22 mr-2"
+              className="w-25 mr-2"
               src={logo}
               alt="Logo"
-              width={88}
-              height={20}
               priority
             />
           </div>
