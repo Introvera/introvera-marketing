@@ -90,7 +90,7 @@ const Footer: FC = () => {
         <div className="text-center md:text-left">
           <h4 className="text-white font-semibold mb-3">Contact</h4>
           <p className="text-sm mb-2">📍 275/3, New Kandy Road, Biyagama.</p>
-          <p className="text-sm mb-2">📞 +94 716782 225</p>
+          <p className="text-sm mb-2">📞 +94 78364 0894</p>
           <p className="text-sm mb-4">
             📧{" "}
             <a href="mailto:teamintrovera@gmail.com" className="hover:text-white">
