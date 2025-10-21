@@ -17,6 +17,8 @@ import nelith from "../assets/team-photos/nelith.jpeg";
 import rasindu from "../assets/team-photos/rasindu.jpeg";
 import kisara from "../assets/team-photos/kisara.jpeg";
 import nithula from "../assets/team-photos/nithula.jpeg";
+import sahan from "../assets/team-photos/sahan.jpeg";
+
 
 interface TeamMember {
   name: string;
@@ -31,33 +33,27 @@ const teamMembers: TeamMember[] = [
   { name: "Deeshana Liyanage", position: "Co-Founder", image: deeshana, linkedin: "https://www.linkedin.com/in/deeshanaliyanage/" },
   { name: "Malindu Bandara", position: "Co-Founder", image: malindu, linkedin: "https://www.linkedin.com/in/malindu-bandara-211223210/" },
   { name: "Hasaru Uyanahewa", position: "Co-Founder", image: hasaru, linkedin: "https://www.linkedin.com/in/hasaruuyanahewa/" },
-  { name: "Sankaja Pandipperuma", position: "Developer", image: sankaja, linkedin: "https://www.linkedin.com/in/sankaja-pandipperuma-477a7b268/" },
-  { name: "Sandara Apoorwa", position: "Developer", image: sandara, linkedin: "https://www.linkedin.com/in/sandara-hettiarachchi-830bb6202/" },
-  { name: "Nelith Nethsanda", position: "Developer", image: nelith, linkedin: "https://www.linkedin.com/in/nelith-nethsanda/" },
-  { name: "Rasindu Bandara", position: "Developer", image: rasindu, linkedin: "https://www.linkedin.com/in/rasindubandara/" },
-  { name: "Kisara Nuwanga", position: "Developer", image: kisara, linkedin: "https://www.linkedin.com/in/kisara-bandara-a2826a296/" },
-  { name: "Nithula Hansaja", position: "Developer", image: nithula, linkedin: "https://www.linkedin.com/in/nithula-hansaja/" },
+  { name: "Sankaja Pandipperuma", position: "Frontend Developer", image: sankaja, linkedin: "https://www.linkedin.com/in/sankaja-pandipperuma-477a7b268/" },
+  { name: "Sandara Apoorwa", position: "Mobile Developer", image: sandara, linkedin: "https://www.linkedin.com/in/sandara-hettiarachchi-830bb6202/" },
+  { name: "Nelith Nethsanda", position: "Mobile Developer", image: nelith, linkedin: "https://www.linkedin.com/in/nelith-nethsanda/" },
+  { name: "Rasindu Bandara", position: "Frontend Developer", image: rasindu, linkedin: "https://www.linkedin.com/in/rasindubandara/" },
+  { name: "Kisara Nuwanga", position: "Frontend Developer", image: kisara, linkedin: "https://www.linkedin.com/in/kisara-bandara-a2826a296/" },
+  { name: "Nithula Hansaja", position: "Marketing Manager", image: nithula, linkedin: "https://www.linkedin.com/in/nithula-hansaja/" },
+  { name: "Sahan Randeepa", position: "Backend Developer", image: sahan, linkedin: "https://www.linkedin.com/in/sahan-randeepa/" },
+
 ];
 
 const Team = () => {
-  // pause autoplay on hover/drag if you like
   const [isHovered, setIsHovered] = useState(false);
-
-  // marquee motion value
   const baseX = useMotionValue(0);
-
-  // px per millisecond (adjust speed)
   const SPEED = 0.09;
-
-  // measure the track (inner flex) width; we duplicate items, so we wrap on halfWidth
   const trackRef = useRef<HTMLDivElement>(null);
   const halfWidthRef = useRef(0);
 
   const measure = () => {
     if (!trackRef.current) return;
-    // We render items 3x; the "original" set width is total/3
     const total = trackRef.current.scrollWidth;
-    halfWidthRef.current = total / 3; // wrap window is one original set width
+    halfWidthRef.current = total / 3;
   };
 
   useEffect(() => {
@@ -67,7 +63,6 @@ const Team = () => {
     return () => ro.disconnect();
   }, []);
 
-  // keep x in (-W, 0]
   const wrapIfNeeded = () => {
     const W = halfWidthRef.current;
     if (!W) return;
@@ -76,7 +71,6 @@ const Team = () => {
     else if (v > 0) baseX.set(v - W);
   };
 
-  // autoplay loop (never ends)
   useAnimationFrame((_, delta) => {
     if (!isHovered) {
       baseX.set(baseX.get() - SPEED * delta);
@@ -104,11 +98,10 @@ const Team = () => {
           style={{ x: baseX }}
           drag="x"
           dragMomentum={false}
-          onUpdate={wrapIfNeeded}                 // wrap while dragging
-          onDragStart={() => setIsHovered(true)}  // optional pause on drag
+          onUpdate={wrapIfNeeded}                 
+          onDragStart={() => setIsHovered(true)}  
           onDragEnd={() => setIsHovered(false)}
         >
-          {/* Duplicate the set 3× so the loop feels seamless on wide screens */}
           {[...teamMembers, ...teamMembers, ...teamMembers].map((member, index) => (
             <motion.div
               key={index}
