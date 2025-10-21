@@ -5,7 +5,7 @@ import { WavyBackground } from "../components/ui/wavy-background";
 
 export function ModernHero() {
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-hidden" id="hero">
       <WavyBackground
         containerClassName="w-full min-h-screen"
         className="max-w-6xl mx-auto px-4 py-24"

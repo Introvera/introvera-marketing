@@ -1,18 +1,18 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import logo from "../assets/logofull.png";
 
 interface NavItem {
   label: string;
-  href: string;
+  href: string; // "#about"
 }
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "#hero" },          // NOTE: make sure there is an element with id="" top anchor OR handle specially
   { label: "About Us", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Services", href: "#services" },
@@ -23,26 +23,100 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const toggleNavbar = () => {
-    setMobileDrawerOpen(!mobileDrawerOpen);
-  };
+  // NEW: active section state
+  const [activeSection, setActiveSection] = useState<string>("#");
 
+  const toggleNavbar = () => setMobileDrawerOpen((v) => !v);
+
+  // Hide/show navbar on scroll (your code)
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setShowNavbar(false);
       } else {
         setShowNavbar(true);
       }
-
       setLastScrollY(currentScrollY);
     };
-
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // IDs we will observe, derived from navItems (strip the #)
+  const observedIds = useMemo(
+    () =>
+      navItems
+        .map((n) => n.href.startsWith("#") ? n.href.slice(1) : "")
+        .filter(Boolean),
+    []
+  );
+
+  // NEW: ScrollSpy with IntersectionObserver
+  useEffect(() => {
+    if (typeof window === "undefined" || observedIds.length === 0) return;
+
+    const elements = observedIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el);
+
+    // Prefer "middle of screen" detection
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // The entry with the largest intersection ratio is our current section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]) {
+          const id = `#${visible[0].target.id}`;
+          setActiveSection(id);
+        } else {
+          // If nothing intersecting (e.g., near top), fallback to closest
+          // Optional: keep previous activeSection
+        }
+      },
+      {
+        root: null,
+        // Start observing when section is roughly in the middle third of screen
+        rootMargin: "-35% 0px -45% 0px",
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [observedIds]);
+
+  // Smooth scroll + close mobile drawer
+  const handleNavClick = (href: string) => (e: React.MouseEvent) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const id = href.slice(1);
+      const target = id ? document.getElementById(id) : document.body;
+
+      if (target) {
+        // account for sticky navbar height
+        const y =
+          (target as HTMLElement).getBoundingClientRect().top +
+          window.pageYOffset -
+          72; // adjust if your navbar height changes
+        window.scrollTo({ top: y, behavior: "smooth" });
+      } else {
+        // fallback to default anchor behavior
+        window.location.hash = href;
+      }
+      setMobileDrawerOpen(false);
+    }
+  };
+
+  // Tailwind classes for active/inactive links
+  const linkBase =
+    "transition-colors duration-200";
+  const linkInactive =
+    "text-neutral-300 hover:text-white";
+  const linkActive =
+    "text-white font-medium underline underline-offset-8";
 
   return (
     <motion.nav
@@ -55,22 +129,31 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center flex-shrink-0">
             <Image
-  className="h-5 w-22 mr-2"
-  src={logo}
-  alt="Logo"
-  width={88}
-  height={20}
-  priority
-          />
-
+              className="h-5 w-22 mr-2"
+              src={logo}
+              alt="Logo"
+              width={88}
+              height={20}
+              priority
+            />
           </div>
 
+          {/* Desktop nav */}
           <ul className="hidden lg:flex ml-14 space-x-12">
-            {navItems.map((item, index) => (
-              <li key={index}>
-                <a href={item.href}>{item.label}</a>
-              </li>
-            ))}
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.href;
+              return (
+                <li key={index}>
+                  <a
+                    href={item.href}
+                    onClick={handleNavClick(item.href)}
+                    className={`${linkBase} ${isActive ? linkActive : linkInactive}`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="hidden lg:flex justify-center space-x-12 items-center">
@@ -84,21 +167,32 @@ const Navbar = () => {
             </motion.a>
           </div>
 
+          {/* Mobile menu button */}
           <div className="lg:hidden md:flex flex-col justify-end">
-            <button onClick={toggleNavbar}>
+            <button onClick={toggleNavbar} aria-label="Toggle menu">
               {mobileDrawerOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
 
+        {/* Mobile drawer */}
         {mobileDrawerOpen && (
           <div className="fixed right-0 z-20 bg-neutral-900 w-full p-12 flex flex-col justify-center items-center lg:hidden">
-            <ul>
-              {navItems.map((item, index) => (
-                <li key={index} className="py-4">
-                  <a href={item.href}>{item.label}</a>
-                </li>
-              ))}
+            <ul className="text-center">
+              {navItems.map((item, index) => {
+                const isActive = activeSection === item.href;
+                return (
+                  <li key={index} className="py-4">
+                    <a
+                      href={item.href}
+                      onClick={handleNavClick(item.href)}
+                      className={`${linkBase} ${isActive ? "text-white font-medium" : "text-neutral-300"}`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
             <div className="flex space-x-6 mt-4">
               <motion.a
@@ -106,6 +200,7 @@ const Navbar = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="py-2 px-3 rounded-md bg-gradient-to-r from-purple-500 to-blue-800 text-white"
+                onClick={() => setMobileDrawerOpen(false)}
               >
                 Talk to us
               </motion.a>
