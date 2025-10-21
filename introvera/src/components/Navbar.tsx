@@ -12,7 +12,7 @@ interface NavItem {
 }
 
 export const navItems: NavItem[] = [
-  { label: "Home", href: "#hero" },          // NOTE: make sure there is an element with id="" top anchor OR handle specially
+  { label: "Home", href: "#hero" },     
   { label: "About Us", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Services", href: "#services" },
@@ -23,12 +23,10 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // NEW: active section state
   const [activeSection, setActiveSection] = useState<string>("#");
 
   const toggleNavbar = () => setMobileDrawerOpen((v) => !v);
 
-  // Hide/show navbar on scroll (your code)
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -43,7 +41,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // IDs we will observe, derived from navItems (strip the #)
   const observedIds = useMemo(
     () =>
       navItems
@@ -52,7 +49,6 @@ const Navbar = () => {
     []
   );
 
-  // NEW: ScrollSpy with IntersectionObserver
   useEffect(() => {
     if (typeof window === "undefined" || observedIds.length === 0) return;
 
@@ -60,10 +56,8 @@ const Navbar = () => {
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el);
 
-    // Prefer "middle of screen" detection
     const observer = new IntersectionObserver(
       (entries) => {
-        // The entry with the largest intersection ratio is our current section
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -72,13 +66,11 @@ const Navbar = () => {
           const id = `#${visible[0].target.id}`;
           setActiveSection(id);
         } else {
-          // If nothing intersecting (e.g., near top), fallback to closest
-          // Optional: keep previous activeSection
+
         }
       },
       {
         root: null,
-        // Start observing when section is roughly in the middle third of screen
         rootMargin: "-35% 0px -45% 0px",
         threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
       }
@@ -88,7 +80,6 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, [observedIds]);
 
-  // Smooth scroll + close mobile drawer
   const handleNavClick = (href: string) => (e: React.MouseEvent) => {
     if (href.startsWith("#")) {
       e.preventDefault();
@@ -96,21 +87,18 @@ const Navbar = () => {
       const target = id ? document.getElementById(id) : document.body;
 
       if (target) {
-        // account for sticky navbar height
         const y =
           (target as HTMLElement).getBoundingClientRect().top +
           window.pageYOffset -
-          72; // adjust if your navbar height changes
+          72;
         window.scrollTo({ top: y, behavior: "smooth" });
       } else {
-        // fallback to default anchor behavior
         window.location.hash = href;
       }
       setMobileDrawerOpen(false);
     }
   };
 
-  // Tailwind classes for active/inactive links
   const linkBase =
     "transition-colors duration-200";
   const linkInactive =
