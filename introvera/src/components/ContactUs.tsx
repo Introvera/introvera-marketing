@@ -77,7 +77,7 @@ const ContactUs = () => {
               <p className="mb-2">
                 <strong>Phone:</strong>{" "}
                 <a href="tel:+94716782225" className="text-blue-600">
-                  +94 716782 225
+                  +94 78364 0894
                 </a>
               </p>
               <p className="mb-2">
